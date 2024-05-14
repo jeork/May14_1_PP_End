@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.Scanner;
 
 // main함수에서 진행
@@ -11,60 +10,68 @@ public class PMain6 {
 
 	public static void main(String[] args) {
 		Scanner k = new Scanner(System.in);
-		int i;
+		int n;
 		int student = 0;
+		// 배열의 기본값 = null
 		int[] score = new int[0];
 		int high_score;
-		float avg;
-		int score_sum=0;
+		double avg;
+		int score_sum = 0;
 
 		a: while (true) {
-
+			System.out.print("-----------------------------------");
+			System.out.println("-----------------------------------");
+			System.out.println("1:학생 수 입력 | 2:점수 입력 | 3:점수 리스트 " + "| 4:최고점수,평균점수 | 5:프로그램 종료");
+			System.out.print("-----------------------------------");
+			System.out.println("-----------------------------------");
 			System.out.print("입력 : ");
-			i = k.nextInt();
+			n = k.nextInt();
 
-			switch (i) {
+			switch (n) {
 			case 1:
 				System.out.print("학생 수를 입력하세요 :");
 				student = k.nextInt();
 				score = new int[student];
 				break;
 			case 2:
-				for (int j = 0; j < student; j++) {
-					System.out.printf("%d 번학생 점수 입력 : ", j+1);
-					score[j] = k.nextInt();
+				for (int i = 0; i < student; i++) {
+					System.out.printf("%d번 학생 점수 입력 : ", i + 1);
+					score[i] = k.nextInt();
 				}
 				break;
 			case 3:
-				for (int j = 0; j < score.length; j++) {
-					System.out.printf("%d번 학생 점수 : %d\n", j + 1, score[j]);
+				System.out.println("점수 리스트 출력");
+				for (int i = 0; i < score.length; i++) {
+					System.out.printf("%d번 학생 점수 : %d\n", i + 1, score[i]);
 				}
-
+//				int index = 1;
+//				for (int i : score) {
+//					System.out.printf("%d번 학생 점수 : %d\n",index++,i);
+//				}
 				break;
 			case 4:
+				score_sum = 0;
+				System.out.println("최고 점수, 평균 점수 출력");
 				high_score = score[0];
-				for (int j = 0; j < score.length; j++) {
-					if (high_score < score[j]) {
-						high_score = score[j];
+				for (int i = 0; i < score.length; i++) {
+					if (high_score < score[i]) {
+						high_score = score[i];
 					}
 				}
 				System.out.println("최고 점수 : " + high_score);
-				for (int j = 0; j < score.length; j++) {
-					score_sum += score[j];
+				for (int i = 0; i < score.length; i++) {
+					score_sum += score[i];
 				}
-				avg = score_sum/student;
-				System.out.println("평균 점수 : "+avg);
+				avg = (double) score_sum / student;
+				System.out.printf("평균 점수 : %.2f\n", avg);
 				break;
 			case 5:
 				System.out.println("프로그램 종료");
-
 				break a;
-
 			default:
 				System.out.println("다시 입력하세요");
 				break;
 			}
 		}
-
 	}
 }
