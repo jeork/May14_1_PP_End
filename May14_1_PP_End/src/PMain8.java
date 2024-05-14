@@ -57,6 +57,7 @@ public class PMain8 {
 				while (true) {
 					if (amount == 0) {
 						System.out.println("파산!");
+						break;
 
 					} else {
 						user_sum = 0;
