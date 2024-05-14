@@ -28,12 +28,11 @@ public class PMain9 {
 		Arrays.sort(lotto);
 		System.out.print("로또 번호  : ");
 		for (int i = 0; i < lotto.length; i++) {
-			System.out.printf("%d ", lotto[i]);
+			System.out.printf("%d\t ", lotto[i]);
 		}
 
 		bonus = n[6];
-		System.out.println();
-		System.out.println("보너스 번호 : " + bonus);
+		System.out.println("+ " + bonus);
 //		for (int i = 0; i < my_num.length; i++) {
 //			System.out.print("번호 입력 :");
 //			my_num[i] = k.nextInt();
@@ -51,9 +50,9 @@ public class PMain9 {
 			}
 		}
 		Arrays.sort(r_num);
-		System.out.print("랜덤 번호 : ");
+		System.out.print("랜덤 번호  : ");
 		for (int i = 0; i < r_num.length; i++) {
-			System.out.printf("%d ", r_num[i]);
+			System.out.printf("%d\t ", r_num[i]);
 		}
 		System.out.println();
 
