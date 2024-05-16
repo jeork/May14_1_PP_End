@@ -1,4 +1,3 @@
-import java.nio.file.spi.FileSystemProvider;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -37,10 +36,10 @@ public class PMain8 {
 		int dept = 0;
 		int money;
 		int user_sum = 0;
-		int cpu_sum = 0;
+		int com_sum = 0;
 		String retry;
 		int[] user_dice = new int[3];
-		int[] cpu_dice = new int[3];
+		int[] com_dice = new int[3];
 		int win = 0;
 		int draw = 0;
 		int lose = 0;
@@ -61,14 +60,19 @@ public class PMain8 {
 
 					} else {
 						user_sum = 0;
-						cpu_sum = 0;
+						com_sum = 0;
 						System.out.print("베팅할 금액 : ");
 						bet = k.nextInt();
 						while (amount < bet) {
 							System.out.print("잔액이 부족합니다 다시입력하세요 : ");
 							bet = k.nextInt();
 						}
+						while (bet < 0) {
+							System.out.print("다시입력하세요 : ");
+							bet = k.nextInt();
+						}
 
+						System.out.println("------------------");
 						System.out.println("유저 주사위");
 						for (int i = 0; i < user_dice.length; i++) {
 							user_dice[i] = r.nextInt(6) + 1;
@@ -77,35 +81,42 @@ public class PMain8 {
 						}
 						System.out.printf("\n유저 주사위 합 : %d\n", user_sum);
 
+						System.out.println("------------------");
 						System.out.println("컴퓨터 주사위");
-						for (int i = 0; i < cpu_dice.length; i++) {
-							cpu_dice[i] = r.nextInt(6) + 1;
-							System.out.print(cpu_dice[i] + " ");
-							cpu_sum += cpu_dice[i];
+						for (int i = 0; i < com_dice.length; i++) {
+							com_dice[i] = r.nextInt(6) + 1;
+							System.out.print(com_dice[i] + " ");
+							com_sum += com_dice[i];
 						}
-						System.out.printf("\n컴퓨터 주사위 합 : %d\n", cpu_sum);
+						System.out.printf("\n컴퓨터 주사위 합 : %d\n", com_sum);
+						System.out.println("------------------");
 
 						// 승리
-						if (user_sum > cpu_sum) {
+						if (user_sum > com_sum) {
 							System.out.println("WIN!");
 							System.out.printf("+%,d원!\n", bet);
 							amount += bet;
 							win++;
 						}
+
 						// 패배
-						else if (user_sum < cpu_sum) {
+						else if (user_sum < com_sum) {
 							System.out.println("LOSE!");
 							System.out.printf("-%,d원!\n", bet);
 							amount -= bet;
 							lose++;
-						} else if (user_sum == cpu_sum) {
+
+						}
+
+						// 무승부
+						else if (user_sum == com_sum) {
 							System.out.println("DRAW!");
 							draw++;
 						}
 						System.out.printf("잔고 : %,d원\n", amount);
-						System.out.println("재도전 하시겠습니까? Y/N");
+						System.out.println("재도전 하시겠습니까? [Y/N]");
 						retry = k.next();
-						if (retry.equals("Y"))
+						if (retry.equals("Y") || retry.equals("y"))
 							continue;
 						else
 							break;
@@ -118,7 +129,7 @@ public class PMain8 {
 				System.out.println("전적");
 				System.out.printf("%d승 %d무 %d패\n", win, draw, lose);
 				System.out.printf("소지금 : %,d원\n", amount);
-				System.out.printf("대출금 : %,d원\n",dept);
+				System.out.printf("대출금 : %,d원\n", dept);
 				break;
 
 			// 대출 기능
@@ -132,17 +143,23 @@ public class PMain8 {
 
 			// 상환 기능
 			case 4:
-				System.out.printf("대출금 : %,d원\n",dept);
-				System.out.print("상환 금액 :");
-				money = k.nextInt();
-				if (amount < money || dept < money)
-					System.out.println("상환 불가");
-				else {
-					amount -= money;
-					dept -= money;
-					System.out.printf("%,d원 상환완료\n", money);
+				if (dept == 0) {
+					System.out.println("상환 할 금액이 없습니다");
+				} else {
+					System.out.printf("대출금 : %,d원\n", dept);
+					System.out.print("상환 금액 :");
+					money = k.nextInt();
+					if (amount < money || dept < money)
+						System.out.println("상환 불가");
+					else {
+						amount -= money;
+						dept -= money;
+						System.out.printf("%,d원 상환완료\n", money);
+						System.out.printf("남은 대출금 : %,d원\n", dept);
+					}
 				}
 				break;
+
 			// 프로그램 종료
 			case 5:
 				System.out.println("프로그램을 종료합니다");
@@ -153,6 +170,5 @@ public class PMain8 {
 				break;
 			}
 		}
-
 	}
 }
